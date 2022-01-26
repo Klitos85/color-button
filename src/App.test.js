@@ -1,78 +1,88 @@
-import { render, screen, fireEvent } from "@testing-library/react"
-import App, {replaceCamelWithSpaces} from "./App"
+import { render, screen, fireEvent } from "@testing-library/react";
+import App, { replaceCamelWithSpaces } from "./App";
 
-test('button has correct initial color', () => {
-  render(<App />)
+test("button has correct initial color", () => {
+  render(<App />);
 
-  const colorButton = screen.getByRole('button', { name: 'Change to Midnight Blue' })
-  expect(colorButton).toHaveStyle({ backgroundColor: 'MediumVioletRed' })
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
+  expect(colorButton).toHaveStyle({ backgroundColor: "MediumVioletRed" });
 
-  fireEvent.click(colorButton)
+  fireEvent.click(colorButton);
 
-  expect(colorButton).toHaveStyle({ backgroundColor: 'MidnightBlue' })
-  expect(colorButton.textContent).toBe('Change to Medium Violet Red')
-})
+  expect(colorButton).toHaveStyle({ backgroundColor: "MidnightBlue" });
+  expect(colorButton).toHaveTextContent("Change to Medium Violet Red");
+});
 
-test('initial conditions', () => {
-  render(<App />)
-  
-  const colorButton = screen.getByRole('button', {name: 'Change to Midnight Blue'})
-  expect(colorButton).toBeEnabled()
+test("initial conditions", () => {
+  render(<App />);
 
-  const checkBox = screen.getByRole('checkbox')
-  expect(checkBox).not.toBeChecked()
-})
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
+  expect(colorButton).toBeEnabled();
 
-test('checkBox functionality', () => {
-  render(<App />)
+  const checkBox = screen.getByRole("checkbox");
+  expect(checkBox).not.toBeChecked();
+});
 
-  const colorButton = screen.getByRole('button', {name: 'Change to Midnight Blue'})
-  const checkBox = screen.getByRole('checkbox', {name: 'Disable button'})
+test("checkBox functionality", () => {
+  render(<App />);
 
-  fireEvent.click(checkBox)
-  expect(colorButton).toBeDisabled()
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
+  const checkBox = screen.getByRole("checkbox", { name: "Disable button" });
 
-  fireEvent.click(checkBox)
-  expect(colorButton).toBeEnabled()
-})
+  fireEvent.click(checkBox);
+  expect(colorButton).toBeDisabled();
 
-test('disabled check and button background change from red to gray', () => {
-  render(<App />)
+  fireEvent.click(checkBox);
+  expect(colorButton).toBeEnabled();
+});
 
-  const colorButton = screen.getByRole('button', {name: 'Change to Midnight Blue'})
-  const checkBox = screen.getByRole('checkbox', {name: 'Disable button'})
+test("disabled check and button background change from red to gray", () => {
+  render(<App />);
 
-  fireEvent.click(checkBox)
-  expect(colorButton).toHaveStyle({ backgroundColor: 'gray' })
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
+  const checkBox = screen.getByRole("checkbox", { name: "Disable button" });
 
-  fireEvent.click(checkBox)
-  expect(colorButton).toHaveStyle({ backgroundColor: 'MediumVioletRed' })
-})
+  fireEvent.click(checkBox);
+  expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
 
-test('disabled check and button background change from blue to gray', () => {
-  render(<App />)
+  fireEvent.click(checkBox);
+  expect(colorButton).toHaveStyle({ backgroundColor: "MediumVioletRed" });
+});
 
-  const colorButton = screen.getByRole('button', {name: 'Change to Midnight Blue'})
-  const checkBox = screen.getByRole('checkbox', {name: 'Disable button'})
+test("disabled check and button background change from blue to gray", () => {
+  render(<App />);
 
-  fireEvent.click(colorButton)
-  fireEvent.click(checkBox)
-  expect(colorButton).toHaveStyle({ backgroundColor: 'gray'})
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
+  const checkBox = screen.getByRole("checkbox", { name: "Disable button" });
 
-  fireEvent.click(checkBox)
-  expect(colorButton).toHaveStyle({ backgroundColor: 'MidnightBlue'})
-})
+  fireEvent.click(colorButton);
+  fireEvent.click(checkBox);
+  expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
 
-describe('spaces before camel-case capital letters', () => {
-  it('works for no inner capital letters', () => {
-    expect(replaceCamelWithSpaces('Red')).toBe('Red')
-  })
+  fireEvent.click(checkBox);
+  expect(colorButton).toHaveStyle({ backgroundColor: "MidnightBlue" });
+});
 
-  it('works for one inner capital letter', () => {
-    expect(replaceCamelWithSpaces('MightnightBlue')).toBe('Mightnight Blue')
-  })
+describe("spaces before camel-case capital letters", () => {
+  it("works for no inner capital letters", () => {
+    expect(replaceCamelWithSpaces("Red")).toBe("Red");
+  });
 
-  it('works for multiple inner capital letters', () => {
-    expect(replaceCamelWithSpaces('MediumVioletRed')).toBe('Medium Violet Red')
-  })
-})
+  it("works for one inner capital letter", () => {
+    expect(replaceCamelWithSpaces("MightnightBlue")).toBe("Mightnight Blue");
+  });
+
+  it("works for multiple inner capital letters", () => {
+    expect(replaceCamelWithSpaces("MediumVioletRed")).toBe("Medium Violet Red");
+  });
+});
